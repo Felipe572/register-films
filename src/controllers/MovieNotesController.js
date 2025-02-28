@@ -11,8 +11,25 @@ class MovieNotesController {
             rating,
             user_id
         });
-        
+
         response.json()
+
+    }
+
+    async show(request, response) {
+        const { id } = request.params;
+
+        const movieNotes = await knex("movieNotes").where({ id }).first();
+
+        return response.json(movieNotes)
+    }
+
+    async delete(request, response) {
+        const { id } = request.params;
+
+        await knex("movieNotes").where({ id }).delete();
+
+        return response.json();
 
     }
 }
